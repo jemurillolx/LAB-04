@@ -1,4 +1,4 @@
-const correctString = (miparam) => {
+const  miparser = (miparam) => {
     let arrayDummy = new Array();
     for (let i = 0; i< miparam.length; i++) {
           let char1 = miparam.charAt(i);
@@ -9,21 +9,21 @@ const correctString = (miparam) => {
               if (char1 == "]"){
                   char2 = arrayDummy.pop();
                   if(char2 != "["){
-                      return "Sintax error";
+                      return false;
                   }
               }else{
                   if (char1 == ")"){
                       char2 = arrayDummy.pop()
                       if(char2 != "(")
                       {
-                        return "Sintax error";
+                        return false;
                       }
                   }else{
                     if (char1 == "}"){
                         char2 = arrayDummy.pop()
                         if(char2 != "{")
                         {
-                          return "Sintax great!";
+                          return true;
                         }
                   }
               }
@@ -32,8 +32,28 @@ const correctString = (miparam) => {
  }
  if(arrayDummy.length > 0)
  {
-    return "Sintax error";
+    return false;
  }else{
-    return "Sintax great!";
+    return true;
  }
 } 
+
+
+var fs = require('fs');
+
+    let fileName = 'file.txt'
+
+    var array = fs.readFileSync(fileName).toString().split("\n");
+    let content = "";
+    for (let i in array) {
+        content += array[i];
+    }
+
+    console.log("input: " + content);
+ let resp = miparser(content);
+    if (resp) {
+        console.log("Sintax error");
+
+    } else {
+        console.log("Great sintax!");
+    }
